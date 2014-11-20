@@ -190,6 +190,7 @@ def main(treeFile, seqFile, mutFile):
         trees = open(treeFile,'r')
     except:
         print '\nLe fichier d\'arbres binaires newick \"%s\" n\'a pas été trouvé\nProcessus avorté\n'
+        sys.exit(1)
     for tree in trees:
         score, discardedTrees = 0, 0
         count += 1
