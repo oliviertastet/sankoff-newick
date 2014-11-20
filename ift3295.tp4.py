@@ -2,13 +2,17 @@
 import math
 import argparse
 import sys
-from node import Node
+from binaryTree import Node
 
 def build_sequence_dict(seqFile):   
     sequence, label = '',''
     sequenceDict = {}
     first = True
-    fastaFile = open(seqFile,'r')
+    try:
+        fastaFile = open(seqFile,'r')
+    except IOError:
+        print '\nLe fichier fasta des séquences de feuilles \"%s\" n\'a pas été trouvé \nProcessus avorté\n'
+        sys.exit(1)
     for line in fastaFile:
         if line.startswith(">"):
             if first:
@@ -35,12 +39,16 @@ def parse_newick_string(s, seqDict):
             currentNode = root
             first = False
         elif character == '(':
+            if currentNode is None:
+                return 0
             nodeID+=1
             node = Node(nodeID)
             node.set_parent(currentNode)
             currentNode.add_child(node)
             currentNode = node
         elif character == ',':
+            if currentNode is None:
+                return 0
             if leafLabel != '':
                 nodeID+=1
                 newNode = Node(leafLabel.strip())
@@ -49,7 +57,9 @@ def parse_newick_string(s, seqDict):
                 leafLabel = ''
             if currentNode.get_right_child() is not None and currentNode.get_left_child() is not None:
                 currentNode = currentNode.get_parent()
-        elif character == ')':           
+        elif character == ')':  
+            if currentNode is None:
+                return 0         
             if leafLabel != '':
                 nodeID+=1
                 newNode = Node(leafLabel.strip(' '))
@@ -94,7 +104,11 @@ def parse_newick_string(s, seqDict):
 # Ainsi, selon un dictionnaire d, le cout de substitution entre X et Y est donné par d['X']['Y']
 def build_mutation_dict(mutfile):           
     mutDict, count, first = {}, 0, True
-    f = open(mutfile,'r')
+    try:
+        f = open(mutfile,'r')
+    except IOError:
+        print '\nLe fichier de matrice des couts de substitutions \"%s\" n\'a pas été trouvé\nProcessus avorté \n'%(mutfile)
+        sys.exit(1)
     for lines in f:
         if first:
             first = False
@@ -172,7 +186,10 @@ def print_tree(tree):
 def main(treeFile, seqFile, mutFile):
     treeScores, count = [], 0
     seqDict, mutationDict = build_sequence_dict(seqFile), build_mutation_dict(mutFile)
-    trees = open(treeFile,'r')
+    try:
+        trees = open(treeFile,'r')
+    except:
+        print '\nLe fichier d\'arbres binaires newick \"%s\" n\'a pas été trouvé\nProcessus avorté\n'
     for tree in trees:
         score, discardedTrees = 0, 0
         count += 1

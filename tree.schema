@@ -1,0 +1,96 @@
+PCDHA1_Humain : H
+PCDHA1_Bonobo : B
+PCDHA1_Souris : S
+PCDHA1_Rat : R
+OR2J3_Humain : H'
+
+
+1 : ((PCDHA1_Humain, OR2J3_Humain), ((PCDHA1_Rat, PCDHA1_Souris), PCDHA1_Bonobo));
+
+					   root
+					  /    \
+					 /      \
+					x        x
+   				   / \      / \
+   				  /   \    /   \
+    			 H    H'  B     x
+    			  			   / \
+    			  			  /   \
+    			  			 S     R
+
+
+
+2 : ((((PCDHA1_Humain,PCDHA1_Souris),PCDHA1_Rat),OR2J3_Humain),PCDHA1_Bonobo);
+		   
+					   root
+					  /    \
+					 / 		\
+				    x        B
+				   / \
+				  /   \
+				 x     H'
+				/ \
+ 		   	   /   \
+ 		   	  x     R
+ 		   	 / \
+ 		   	/   \
+ 		   H     S
+
+
+3 : (((PCDHA1_Humain, PCDHA1_Rat), (PCDHA1_Souris, PCDHA1_Bonobo)), OR2J3_Humain);
+
+					   root
+					  /    \
+					 / 		\
+				    x        H'
+				   / \
+				  /   \
+				 x     x
+ 		   	    / \   / \
+  		   	   H   R S   B
+
+
+
+4 : (((OR2J3_Humain, PCDHA1_Rat), (PCDHA1_Souris, PCDHA1_Bonobo)), PCDHA1_Humain);
+
+					   root
+					  /    \
+					 / 		\
+				    x        H
+				   / \
+				  /   \
+				 x     x
+ 		   	    / \   / \
+  		   	   H'  R S   B
+
+
+
+
+5 : (((PCDHA1_Humain,PCDHA1_Bonobo),(PCDHA1_Souris,PCDHA1_Rat)),OR2J3_Humain);
+
+					   root
+					  /    \
+					 / 		\
+				    x        H'
+				   / \
+				  /   \
+				 x     x
+ 		   	    / \   / \
+  		   	   H   B S   R
+
+6 : ((((PCDHA1_Rat,PCDHA1_Souris),OR2J3_Humain),PCDHA1_Humain),PCDHA1_Bonobo);
+
+					   root
+					  /    \
+					 / 		\
+				    x        B
+				   / \
+				  /   \
+				 x     H
+				/ \
+ 		   	   /   \
+ 		   	  x     H'
+ 		   	 / \
+ 		   	/   \
+ 		   R     S
+
